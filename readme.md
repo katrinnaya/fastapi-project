@@ -1,21 +1,22 @@
-#Проект FastAPI: Планировщик дел TODO и Сервис Сокращения URL
+# Проект FastAPI: Планировщик дел TODO и Сервис Сокращения URL
 Этот репозиторий содержит два микросервиса, разработанных с использованием FastAPI: планировщик дел TODO и сервис сокращения URL. Оба сервиса упакованы в Docker-контейнеры и используют базы данных SQLite для хранения данных.
-##Требования
+## Требования
 Для локального запуска этих сервисов понадобятся:
 
 - Python 3.7+
 - SQLite
 - Docker (для запуска в контейнерах)
 - Docker Compose (рекомендуется для упрощённого управления контейнерами)
-##Установка
+## Установка
 1. Клонируйте этот репозиторий:
 ```
-git clone https://github.com/<ваше_имя_пользователя>/my-fastapi-project.git
+git clone https://github.com/katrinnaya/my-fastapi-project.git
 ```
 2. Перейдите в директорию проекта:
-```cd my-fastapi-project
 ```
-##Локальный запуск (без Docker)
+cd my-fastapi-project
+```
+## Локальный запуск (без Docker)
 1. Установите зависимости для каждого сервиса:
 ### Для приложения TODO
 ``` 
@@ -40,7 +41,7 @@ uvicorn main:app --reload
 - Приложение TODO: http://localhost:8000/docs
 - Сервис сокращения URL: http://localhost:8001/docs
 
-##Запуск через Docker
+## Запуск через Docker
 1. Постройте Docker-образы для обоих сервисов:
 ### Для приложения TODO
 ```
@@ -64,11 +65,11 @@ docker run -d -p 8000:80 -v todo_data:/app/data todo-app
 ```
 docker run -d -p 8001:80 -v shorturl_data:/app/data shorturl-service
 ```
-##Теперь сервисы будут доступны по тем же адресам:
+## Теперь сервисы будут доступны по тем же адресам:
 - Приложение TODO: http://localhost:8000/docs
 - Сервис сокращения URL: http://localhost:8001/docs
 
-##Загрузка готового образа из Docker Hub
+## Загрузка готового образа из Docker Hub
 ### Для приложения TODO
 ```
 docker pull katrinnaya/todo-app
@@ -77,9 +78,9 @@ docker pull katrinnaya/todo-app
 ```
 docker pull katrinnaya/shorturl_app
 ```
-##Тестирование эндпоинтов
+## Тестирование эндпоинтов
 Вы можете протестировать работу эндпоинтов с помощью curl или любого другого инструмента для тестирования API, такого как Postman.
-###Приложение TODO
+### Приложение TODO
 - Создание новой задачи (POST /items)
 ```
 curl -X POST \
@@ -110,13 +111,17 @@ curl -X DELETE http://localhost:8000/items/1
 ```
 curl http://localhost:8000/completed-items-count
 ```
-###Сервис сокращения URL
+### Сервис сокращения URL
 - Создание короткой ссылки (POST /shorten)
 ```
 curl -X POST \
   -H 'Content-Type: application/json' \
   -d '{"original_url": "https://example.com/dlinnyj-url"}' \
   http://localhost:8001/shorturls
+```
+- Получение всех сокращённых URL (GET /all-urls)
+```
+curl -X GET http://localhost:8000/all-urls
 ```
 - Переадресация на оригинальный URL (GET /{short_id})
 ```
